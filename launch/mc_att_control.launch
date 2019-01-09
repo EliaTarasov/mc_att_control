@@ -1,0 +1,9 @@
+<launch>
+  <!-- Name of the node -->
+  <arg name="mc_att_control_node" default="mc_att_control"/>
+
+  <node pkg="mc_att_control" name="$(arg mc_att_control_node)" type="mc_att_control" output="screen">
+    <param name="publish_rate" value="100" type="int"/>
+  </node>
+
+</launch>
