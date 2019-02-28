@@ -5,20 +5,20 @@ namespace mc_att_control
 {
 
 Node::Node(const ros::NodeHandle &nh, const ros::NodeHandle &pnh) : nh_(pnh), init_(false) {
-  ROS_INFO("Subscribing to imu");
-  subImu_ = nh_.subscribe<sensor_msgs::Imu>("/mavros/imu/data", 1000, &Node::imuCallback, this, ros::TransportHints().tcpNoDelay(true));
+  ROS_INFO("Subscribing to imu.");
+  subImu_ = nh_.subscribe<sensor_msgs::Imu>("imu", 1000, &Node::imuCallback, this, ros::TransportHints().tcpNoDelay(true));
 
   ROS_INFO("Subscribing to extended state");
-  subExtendedState_ = nh_.subscribe("/mavros/extended_state", 1, &Node::extendedStateCallback, this);
+  subExtendedState_ = nh_.subscribe("extended_state", 1, &Node::extendedStateCallback, this);
 
   ROS_INFO("Subscribing to state");
-  subState_ = nh_.subscribe("/mavros/state", 1, &Node::stateCallback, this);
+  subState_ = nh_.subscribe("state", 1, &Node::stateCallback, this);
 
   ROS_INFO("Subscribing to manual control");
-  subManualControl_ = nh_.subscribe<mavros_msgs::ManualControl>("/mavros/manual_control/control", 1, &Node::manualControlCallback, this);
+  subManualControl_ = nh_.subscribe<mavros_msgs::ManualControl>("manual_control", 1, &Node::manualControlCallback, this);
 
   ROS_INFO("Subscribing to attitude target");
-  subAttitudeTarget_ = nh_.subscribe<mavros_msgs::AttitudeTarget>("/mc_pos_control/attitude_target", 1, &Node::attitudeTargetCallback, this);
+  subAttitudeTarget_ = nh_.subscribe<mavros_msgs::AttitudeTarget>("attitude_target", 1, &Node::attitudeTargetCallback, this);
 
   pubActuatorControls_ = nh_.advertise<mavros_msgs::ActuatorControl>("/mavros/actuator_control", 1);
   int publish_rate = default_publish_rate_;

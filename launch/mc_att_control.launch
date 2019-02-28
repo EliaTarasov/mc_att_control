@@ -2,7 +2,28 @@
   <!-- Name of the node -->
   <arg name="mc_att_control_node" default="mc_att_control"/>
 
+  <!-- IMU topic to use -->
+  <arg name="imu_topic" default="/mavros/imu/data"/>
+
+  <!-- STATE topic to use -->
+  <arg name="state_topic" default="/mavros/state"/>
+
+  <!-- EXTENDED STATE topic to use -->
+  <arg name="extended_state_topic" default="/mavros/extended_state"/>
+
+  <!-- MANUAL CONTROL topic to use -->
+  <arg name="manual_control_topic" default="/mavros/manual_control/control"/>
+
+  <!-- ATTITUDE TARGET topic to use -->
+  <arg name="attitude_target_topic" default="/mc_pos_control/attitude_target"/>
+
   <node pkg="mc_att_control" name="$(arg mc_att_control_node)" type="mc_att_control" output="screen">
+    <remap from="~imu" to="$(arg imu_topic)"/>
+    <remap from="~state" to="$(arg state_topic)"/>
+    <remap from="~extended_state" to="$(arg extended_state_topic)"/>
+    <remap from="~manual_control" to="$(arg manual_control_topic)"/>
+    <remap from="~attitude_target" to="$(arg attitude_target_topic)"/>
+
     <param name="publish_rate" value="100" type="int"/>
   </node>
 
